@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Sainte Bible Illustrée</title>
+    <title>La Sainte Bible Standard</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
     <header>
-        <h1>📖 La Sainte Bible Illustrée</h1>
+        <h1>📖 La Sainte Bible</h1>
         <p>De la Genèse à l'Apocalypse</p>
         
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Rechercher un mot, un verset (ex: amour)...">
+            <input type="text" id="searchInput" placeholder="Rechercher un mot, un verset...">
             <button id="searchBtn">🔍</button>
         </div>
     </header>
 
-    <!-- Menu de sélection des Testaments et des Livres -->
     <nav class="bible-nav-menu">
         <select id="testamentSelect" onchange="changerTestament()">
             <option value="ancien">Ancien Testament</option>
@@ -27,27 +26,26 @@
         </select>
         
         <select id="bookSelect" onchange="changerLivre()">
-            <!-- Injecté dynamiquement -->
+            <!-- Rempli dynamiquement -->
         </select>
     </nav>
 
     <main>
-        <!-- Section Résultats de recherche -->
+        <!-- Résultats de recherche -->
         <section id="searchResultsSection" class="hidden">
             <h2>Résultats de recherche</h2>
             <div id="searchResultsList"></div>
             <button onclick="fermerRecherche()" class="btn-retour">← Retour à la lecture</button>
         </section>
 
-        <!-- Section de lecture principale -->
+        <!-- Lecteur principal -->
         <section id="readerSection">
             <div class="navigation-controls">
-                <button onclick="changerChapitre(-1)">◀ Chapitre Précédent</button>
+                <button onclick="changerChapitre(-1)">◀ Précédent</button>
                 <span id="currentBookChapter">Chargement...</span>
-                <button onclick="changerChapitre(1)">Chapitre Suivant ▶</button>
+                <button onclick="changerChapitre(1)">Suivant ▶</button>
             </div>
 
-            <!-- Contenu dynamique des scènes et illustrations -->
             <div id="contentContainer"></div>
         </section>
     </main>
