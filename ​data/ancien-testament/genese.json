@@ -1,1 +1,13 @@
+[
+  {
+    "chapitre": 1,
+    "illustration": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "legendeScene": "La Création du monde et de la lumière",
+    "versets": [
+      { "numero": 1, "texte": "Au commencement, Dieu créa les cieux et la terre." },
+      { "numero": 2, "texte": "La terre était informe et vide: il y avait des ténèbres à la surface de l'abîme, et l'esprit de Dieu se mouvait au dessus des eaux." },
+      { "numero": 3, "texte": "Dieu dit: Que la lumière soit! Et la lumière fut." }
+    ]
+  }
+]
 
