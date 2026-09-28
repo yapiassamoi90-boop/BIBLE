@@ -5,35 +5,45 @@ let testamentActuel = "ancien-testament";
 
 // Initialisation au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
-    initialiserLivres();
-    chargerChapitreCourant();
+    changerTestament();
 });
 
 // Remplir la liste des livres selon le testament sélectionné
 function changerTestament() {
     const testamentSelect = document.getElementById("testamentSelect");
-    testamentActuel = testamentSelect.value === "ancien" ? "ancien-testament" : "nouveau-testament";
+    // testamentSelect.value peut être "ancien" ou "nouveau"
+    const valeurSelect = testamentSelect.value;
     
-    initialiserLivres();
+    testamentActuel = valeurSelect === "ancien" ? "ancien-testament" : "nouveau-testament";
+    initialiserLivres(valeurSelect);
 }
 
-function initialiserLivres() {
+function initialiserLivres(valeurTestament) {
     const bookSelect = document.getElementById("bookSelect");
     bookSelect.innerHTML = "";
     
-    // Utilisation de la structure définie dans js/bible-structure.js
-    const listeLivres = testamentActuel === "ancien-testament" ? window.ancienTestament : window.nouveauTestament;
+    // Utilisation de la structure globale BIBLE_STRUCTURE définie dans bible-structure.js
+    let listeLivres = [];
+    if (window.BIBLE_STRUCTURE) {
+        if (valeurTestament === "ancien") {
+            listeLivres = window.BIBLE_STRUCTURE.ancienTestament;
+        } else {
+            listeLivres = window.BIBLE_STRUCTURE.nouveauTestament;
+        }
+    }
     
-    if (listeLivres) {
+    if (listeLivres && listeLivres.length > 0) {
         listeLivres.forEach(livre => {
             const option = document.createElement("option");
-            option.value = livre.id; // ex: "genese"
-            option.textContent = livre.nom; // ex: "Genèse"
+            // Le nom du fichier dans ton structure.js est par ex "genese.json" -> on enlève le .json pour l'id
+            const idLivre = livre.fichier.replace(".json", "").toLowerCase();
+            option.value = idLivre; 
+            option.textContent = livre.nom;
             bookSelect.appendChild(option);
         });
         
         // Sélectionner le premier livre par défaut
-        livreActuel = listeLivres[0].id;
+        livreActuel = listeLivres[0].fichier.replace(".json", "").toLowerCase();
         chapitreActuel = 1;
         chargerChapitreCourant();
     }
@@ -71,9 +81,12 @@ async function chargerChapitreCourant() {
         const donnees = await reponse.json();
         const chapitreObj = donnees.find(c => c.chapitre === chapitreActuel);
         
+        const bookSelect = document.getElementById("bookSelect");
+        const nomLivreAffiche = bookSelect.selectedOptions.length > 0 ? bookSelect.selectedOptions[0].textContent : livreActuel;
+        
         if (chapitreObj) {
             // Mettre à jour l'indicateur de titre
-            titreIndicator.textContent = `${document.getElementById("bookSelect").selectedOptions[0].textContent} - Chapitre ${chapitreActuel}`;
+            titreIndicator.textContent = `${nomLivreAffiche} - Chapitre ${chapitreActuel}`;
             
             // Afficher les versets
             let htmlVersets = "";
@@ -83,12 +96,12 @@ async function chargerChapitreCourant() {
             conteneur.innerHTML = htmlVersets;
         } else {
             // Si le chapitre n'existe pas encore dans le JSON
-            titreIndicator.textContent = `Chapitre ${chapitreActuel}`;
+            titreIndicator.textContent = `${nomLivreAffiche} - Chapitre ${chapitreActuel}`;
             conteneur.innerHTML = `<p>Le chapitre ${chapitreActuel} de ce livre n'est pas encore disponible dans les fichiers.</p>`;
         }
     } catch (erreur) {
         console.error(erreur);
         titreIndicator.textContent = "Erreur de chargement";
-        conteneur.innerHTML = `<p>Impossible de charger le contenu de ce livre pour le moment.</p>`;
+        conteneur.innerHTML = `<p>Impossible de charger le contenu de ce livre pour le moment (le fichier JSON correspondant doit être créé dans le dossier <code>data/${testamentActuel}/</code>).</p>`;
     }
 }
