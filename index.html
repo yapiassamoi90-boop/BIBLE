@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Sainte Bible Illustrée</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <header>
+        <h1>📖 La Sainte Bible Illustrée</h1>
+        <p>De la Genèse à l'Apocalypse</p>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Rechercher un mot, un verset (ex: amour)...">
+            <button id="searchBtn">🔍</button>
+        </div>
+    </header>
+
+    <!-- Menu de sélection des Testaments et des Livres -->
+    <nav class="bible-nav-menu">
+        <select id="testamentSelect" onchange="changerTestament()">
+            <option value="ancien">Ancien Testament</option>
+            <option value="nouveau">Nouveau Testament</option>
+        </select>
+        
+        <select id="bookSelect" onchange="changerLivre()">
+            <!-- Injecté dynamiquement -->
+        </select>
+    </nav>
+
+    <main>
+        <!-- Section Résultats de recherche -->
+        <section id="searchResultsSection" class="hidden">
+            <h2>Résultats de recherche</h2>
+            <div id="searchResultsList"></div>
+            <button onclick="fermerRecherche()" class="btn-retour">← Retour à la lecture</button>
+        </section>
+
+        <!-- Section de lecture principale -->
+        <section id="readerSection">
+            <div class="navigation-controls">
+                <button onclick="changerChapitre(-1)">◀ Chapitre Précédent</button>
+                <span id="currentBookChapter">Chargement...</span>
+                <button onclick="changerChapitre(1)">Chapitre Suivant ▶</button>
+            </div>
+
+            <!-- Contenu dynamique des scènes et illustrations -->
+            <div id="contentContainer"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Développé avec passion | Dev.Assamoi</p>
+    </footer>
+
+    <script src="js/bible-structure.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
