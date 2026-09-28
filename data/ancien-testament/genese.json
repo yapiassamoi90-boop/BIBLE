@@ -1,1 +1,13 @@
 
+[
+  {
+    "chapitre": 1,
+    "versets": [
+      { "numero": 1, "texte": "Au commencement, Dieu créa les cieux et la terre." },
+      { "numero": 2, "texte": "La terre était informelle et vide : il y avait des ténèbres à la surface de l'abîme, et l'Esprit de Dieu se mouvait au-dessus des eaux." },
+      { "numero": 3, "texte": "Dieu dit : Que la lumière soit ! Et la lumière fut." },
+      { "numero": 4, "texte": "Dieu vit que la lumière était bonne ; et Dieu sépara la lumière d'avec les ténèbres." },
+      { "numero": 5, "texte": "Dieu appela la lumière jour, et il appela les ténèbres nuit. Ainsi, il y eut un soir, et il y eut un matin : ce fut le premier jour." }
+    ]
+  }
+]
